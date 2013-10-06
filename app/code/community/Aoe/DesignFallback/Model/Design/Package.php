@@ -11,13 +11,9 @@ class Aoe_DesignFallback_Model_Design_Package extends Mage_Core_Model_Design_Pac
 	 * @param array $fallbackScheme
 	 * @return string
 	 */
-	protected function _fallback($file, array &$params, array $fallbackScheme = array(array())) {
-
-            if ($this->getArea() != 'adminhtml') {
-                return parent::_fallback($file, $params, $this->getFallbackScheme($params));
-            }
-
-		return parent::_fallback($file, $params, $fallbackScheme);
+	protected function _fallback($file, array &$params, array $fallbackScheme = array(array()))
+    {
+        return parent::_fallback($file, $params, $this->getFallbackScheme($params));
 	}
 
 	/**
@@ -26,8 +22,16 @@ class Aoe_DesignFallback_Model_Design_Package extends Mage_Core_Model_Design_Pac
 	 * @param array $defaults (optional). Needed for resolving default package and theme for duplicates eliminiation
 	 * @return array
 	 */
-	protected function getFallbackScheme(array $defaults=array()) {
-		$configuration = Mage::getStoreConfig('design/fallback/fallback', $this->getStore());
+	protected function getFallbackScheme(array $defaults=array())
+    {
+
+        if ($this->getArea() != Mage_Core_Model_App_Area::AREA_ADMINHTML) {
+            $configuration = Mage::getStoreConfig('design/fallback/fallback', $this->getStore());
+        } else {
+            $configuration = Mage::getStoreConfig('design/fallback/fallback_admin', $this->getStore());
+        }
+
+
 		$fallbackScheme = array();
 		foreach (explode("\n", $configuration) as $line) {
 			if (strpos($line, ':') === false) {

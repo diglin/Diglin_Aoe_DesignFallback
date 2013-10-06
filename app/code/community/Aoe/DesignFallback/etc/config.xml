@@ -40,6 +40,9 @@
 				<fallback><![CDATA[[current]:[current]
 [current]:default
 base:default]]></fallback>
+                <fallback_admin><![CDATA[[current]:[current]
+[current]:default
+base:default]]></fallback_admin>
 			</fallback>
 		</design>
 	</default>
